@@ -39,7 +39,9 @@ public class UserPersistenceAdapter implements UserPort {
     @Override
     public User save(User user) {
         UserEntity e = new UserEntity();
-        e.setId(user.getId());
+        if (user.getId() != null) {
+            e.setId(user.getId());
+        }
         e.setEmail(user.getEmail());
         e.setPasswordHash(user.getPasswordHash());
         e.setEnabled(user.isEnabled());

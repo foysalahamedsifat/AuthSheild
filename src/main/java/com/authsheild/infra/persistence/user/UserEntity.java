@@ -1,6 +1,7 @@
 package com.authsheild.infra.persistence.user;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -19,6 +20,12 @@ public class UserEntity {
 
     @Column(name="enabled", nullable=false)
     private boolean enabled = true;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -40,6 +47,27 @@ public class UserEntity {
     public boolean isEnabled() { return enabled; }
     public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
     public Set<RoleEntity> getRoles() { return roles; }
     public void setRoles(Set<RoleEntity> roles) { this.roles = roles; }
+
+    @PrePersist
+    void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+        if (updatedAt == null) {
+            updatedAt = createdAt;
+        }
+    }
+
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }

@@ -28,6 +28,7 @@ public class SecurityBeansConfig {
                 // ✅ Authorization rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/api/v1/auth/**",
                                 "/api/auth/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",

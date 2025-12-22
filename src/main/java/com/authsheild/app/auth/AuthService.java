@@ -54,7 +54,7 @@ public class AuthService {
         }
 
         var newUser = new User(
-                UUID.randomUUID(),
+                null,
                 email,
                 passwordEncoder.encode(req.password()),
                 true,
@@ -87,6 +87,7 @@ public class AuthService {
         String refreshHash = tokenService.sha256Base64(refreshRaw);
 
         refreshTokenPort.save(new RefreshToken(
+                UUID.randomUUID(),
                 UUID.randomUUID(),
                 user.getId(),
                 refreshHash,
@@ -125,6 +126,7 @@ public class AuthService {
         String newHash = tokenService.sha256Base64(newRaw);
 
         refreshTokenPort.save(new RefreshToken(
+                UUID.randomUUID(),
                 UUID.randomUUID(),
                 user.getId(),
                 newHash,

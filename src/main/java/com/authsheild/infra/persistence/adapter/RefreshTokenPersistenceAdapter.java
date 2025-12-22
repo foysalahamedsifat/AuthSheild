@@ -23,6 +23,7 @@ public class RefreshTokenPersistenceAdapter implements RefreshTokenPort {
     public RefreshToken save(RefreshToken token) {
         RefreshTokenEntity e = new RefreshTokenEntity();
         e.setId(token.getId());
+        e.setFamilyId(token.getFamilyId());
         e.setUserId(token.getUserId());
         e.setTokenHash(token.getTokenHash());
         e.setExpiresAt(token.getExpiresAt());
@@ -46,6 +47,14 @@ public class RefreshTokenPersistenceAdapter implements RefreshTokenPort {
     }
 
     private RefreshToken toDomain(RefreshTokenEntity e) {
-        return new RefreshToken(e.getId(), e.getUserId(), e.getTokenHash(), e.getExpiresAt(), e.getRevokedAt(), e.getCreatedAt());
+        return new RefreshToken(
+                e.getId(),
+                e.getFamilyId(),
+                e.getUserId(),
+                e.getTokenHash(),
+                e.getExpiresAt(),
+                e.getRevokedAt(),
+                e.getCreatedAt()
+        );
     }
 }
