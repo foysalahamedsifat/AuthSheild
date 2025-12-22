@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=AuthSheildDb;encrypt=true;trustServerCertificate=true
+    username: authshield_user
+    password: AuthShield@12345
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        format_sql: true
+
+  flyway:
+    enabled: true
+
+
+authshield:
+  jwt:
+    issuer: auth
+    access-token-minutes: 15
+    refresh-token-days: 14
+    secret: "V8mK2pQ9sT4xY7nL1cR6hJ3uE5wA0dF8gZ2bN9qP7vS4tX6yH1kM3rJ5uC8eW0aD"
