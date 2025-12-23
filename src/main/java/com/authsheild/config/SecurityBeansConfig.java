@@ -34,11 +34,11 @@ public class SecurityBeansConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http
-                // ❌ No CSRF for stateless APIs
+                // No CSRF for stateless APIs
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-                // ✅ Authorization rules
+                // Authorization rules
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/**",
@@ -50,15 +50,15 @@ public class SecurityBeansConfig {
                         .anyRequest().authenticated()
                 )
 
-                // ✅ JWT = STATELESS
+                // JWT = STATELESS
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // ❌ Disable default login page
+                // Disable default login page
                 .formLogin(form -> form.disable())
 
-                // ❌ Disable basic auth popup
+                // Disable basic auth popup
                 .httpBasic(basic -> basic.disable())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
